@@ -77,6 +77,20 @@ namespace BigCommerce4Net.Api
         /// would be "Mon%2C%2012%20Sep%202011%2006%3A40%3A17%20%2B0000"
         /// </summary>
         public DateTime? MaximumDateCreated { get; set; }
+        /// <summary>
+        /// Retrieve all orders modified after a specified date. 
+        /// The date should be URL encoded, for example "Mon, 12 Sep 2011 06:40:17 +0000" 
+        /// would be "Mon%2C%2012%20Sep%202011%2006%3A40%3A17%20%2B0000"
+        /// </summary>
+        public DateTime? MinimumDateModified { get; set; }
+
+        /// <summary>
+        /// Retrieve all orders modified before a specified date. 
+        /// The date should be URL encoded, for example "Mon, 12 Sep 2011 06:40:17 +0000" 
+        /// would be "Mon%2C%2012%20Sep%202011%2006%3A40%3A17%20%2B0000"
+        /// </summary>
+        public DateTime? MaximumDateModified { get; set; }
+
 
         public override void AddFilter(IRestRequest request) {
             base.AddFilter(request);
@@ -110,6 +124,14 @@ namespace BigCommerce4Net.Api
             }
             if (this.MaximumDateCreated != null) {
                 request.AddParameter("max_date_created", String.Format(RFC2822_DATE_FORMAT, this.MaximumDateCreated), ParameterType.GetOrPost);
+            }
+            if (this.MinimumDateModified != null)
+            {
+                request.AddParameter("min_date_modified", String.Format(RFC2822_DATE_FORMAT, this.MinimumDateModified), ParameterType.GetOrPost);
+            }
+            if (this.MaximumDateModified != null)
+            {
+                request.AddParameter("max_date_modified", String.Format(RFC2822_DATE_FORMAT, this.MaximumDateModified), ParameterType.GetOrPost);
             }
         }
     }
